@@ -1,12 +1,13 @@
-<link rel="stylesheet" href="{{ asset('dataTables.bootstrap5.') }}" />
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="{{ asset('dataTables.bootstrap5.min.css') }}" />
 
+<!-- DataTables JS -->
+<script src="{{ asset('jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dataTables.bootstrap5.min.js') }}"></script>
 
-
-<script src="{{ asset('dataTables.') }}"></script>
-<script src="{{ asset('dataTables.bootstrap5.') }}"></script>
-
+<!-- Initialize DataTable -->
 <script>
     $(document).ready(function() {
-        new DataTable('.datatable');
+        $('.datatable').DataTable();  // Initialize DataTable pada elemen dengan kelas 'datatable'
     });
 </script>
