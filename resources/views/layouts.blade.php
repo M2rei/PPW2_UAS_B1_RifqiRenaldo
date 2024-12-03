@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>UAS 24/25 Ganjil</title>
         <link href="{{ asset('bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('dataTables.bootstrap5.css') }}" /> <!-- Link CSS DataTables -->
         <style>
             input[readonly] {
                 background-color: #e9ecef;
@@ -59,6 +60,19 @@
 
         <script src="{{ asset('jquery-3.7.1.min.js') }}"></script>
         <script src="{{ asset('bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('jquery.dataTables.min.js') }}"></script> <!-- Link JS DataTables -->
+        <script src="{{ asset('dataTables.bootstrap5.js') }}"></script> <!-- Link JS DataTables -->
         @stack('customjs')
+
+        <script>
+            $(document).ready(function() {
+                // Inisialisasi DataTable untuk tabel transaksi
+                $('.datatable').DataTable({
+                    paging: true,          // Menampilkan paginasi
+                    searching: true,       // Menampilkan fitur pencarian
+                    responsive: true,      // Membuat tabel responsif
+                });
+            });
+        </script>
     </body>
 </html>
