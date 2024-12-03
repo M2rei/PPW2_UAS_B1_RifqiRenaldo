@@ -21,7 +21,7 @@
                 box-shadow: none;
             }
         </style>
-        @stack('customcss')
+        @stack('customcss') <!-- Custom CSS Push -->
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-light">
@@ -32,47 +32,33 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto">
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
-                        </li>
-                    @else
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endguest
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div class="container py-4">
-            @yield('content')
+            @yield('content') <!-- Content from the child view -->
         </div>
 
-        <script src="{{ asset('jquery-3.7.1.min.js') }}"></script>
-        <script src="{{ asset('bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('jquery.dataTables.min.js') }}"></script> <!-- Link JS DataTables -->
-        <script src="{{ asset('dataTables.bootstrap5.js') }}"></script> <!-- Link JS DataTables -->
-        @stack('customjs')
-
-        <script>
-            $(document).ready(function() {
-                // Inisialisasi DataTable untuk tabel transaksi
-                $('.datatable').DataTable({
-                    paging: true,          // Menampilkan paginasi
-                    searching: true,       // Menampilkan fitur pencarian
-                    responsive: true,      // Membuat tabel responsif
-                });
-            });
-        </script>
+        <script src="{{ asset('bootstrap.bundle.min.js') }}"></script> <!-- Bootstrap JS (includes Popper.js) -->
+        @stack('customjs') <!-- Custom JS Push -->
     </body>
 </html>
