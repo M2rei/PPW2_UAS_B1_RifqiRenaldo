@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Transaksi;
@@ -14,20 +13,25 @@ class TransaksiSeeder extends Seeder
      */
     public function run(): void
     {
+        // Membuat instance Faker
         $faker = Faker::create();
 
-        $startDate = Carbon::create(); // startDate = 2024-11-01
-        $endDate = Carbon::create(); // endDate = 2024-11-10
+        // Set tanggal mulai dan selesai
+        $startDate = Carbon::createFromDate(2024, 11, 1); // startDate = 2024-11-01
+        $endDate = Carbon::createFromDate(2024, 11, 10); // endDate = 2024-11-10
 
+        // Loop melalui setiap tanggal dari startDate sampai endDate
         for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-            $numberOfTransactions = // gunakan faker untuk membuat angka antara 15 - 20
+            // Gunakan faker untuk membuat angka antara 15 hingga 20
+            $numberOfTransactions = $faker->numberBetween(15, 20);
 
+            // Loop untuk membuat transaksi berdasarkan jumlah yang dihasilkan
             for ($i = 0; $i < $numberOfTransactions; $i++) {
                 Transaksi::create([
                     'tanggal_pembelian' => $date->format('Y-m-d'),
-                    'total_harga' => 0,
-                    'bayar' => 0,
-                    'kembalian' => 0,
+                    'total_harga' => 0,  // Anda bisa mengganti dengan nilai acak jika diperlukan
+                    'bayar' => 0,        // Anda bisa mengganti dengan nilai acak jika diperlukan
+                    'kembalian' => 0,    // Anda bisa mengganti dengan nilai acak jika diperlukan
                 ]);
             }
         }

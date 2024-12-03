@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Transaksi;
@@ -21,27 +20,31 @@ class TransaksiDetailSeeder extends Seeder
         $transaksi = Transaksi::all();
 
         foreach ($transaksi as $t) {
-            $numberOfDetails = // gunakan faker untuk membuat angka antara 5 - 15
+            // Gunakan faker untuk membuat angka antara 5 hingga 15
+            $numberOfDetails = $faker->numberBetween(5, 15);
             $total_harga = 0;
 
             for ($j = 0; $j < $numberOfDetails; $j++) {
-                $hargaSatuan = $faker->numberBetween(10, 500) * 100;
-                $jumlah = $faker->numberBetween(1, 5);
-                $subtotal = $hargaSatuan * $jumlah;
-                $total_harga += $subtotal;
+                $hargaSatuan = $faker->numberBetween(10, 500) * 100; // Menghasilkan harga satuan
+                $jumlah = $faker->numberBetween(1, 5); // Menghasilkan jumlah
+                $subtotal = $hargaSatuan * $jumlah; // Menghitung subtotal
+                $total_harga += $subtotal; // Menambahkan subtotal ke total harga
 
-                TransaksiDetail:create([
+                // Membuat detail transaksi
+                TransaksiDetail::create([
                     'id_transaksi' => $t->id,
-                    'nama_produk' => $faker->productName,
+                    'nama_produk' => $faker->productName, // Menghasilkan nama produk
                     'harga_satuan' => $hargaSatuan,
                     'jumlah' => $jumlah,
-                    'subtotal'
+                    'subtotal' => $subtotal
                 ]);
             }
 
+            // Menyimpan perubahan pada transaksi
             $t->total_harga = $total_harga;
-            $t->bayar = ceil($total_harga/50000) * 50000;
-            $t->kembalian = $t->bayar - $total_harga
+            $t->bayar = ceil($total_harga / 50000) * 50000; // Pembayaran dibulatkan ke kelipatan 50.000
+            $t->kembalian = $t->bayar - $total_harga; // Menghitung kembalian
+            $t->save(); // Simpan perubahan transaksi
         }
     }
 }
